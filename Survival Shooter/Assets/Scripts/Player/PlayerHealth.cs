@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int startingHealth = 100;
+    public int startingHealth = 100; //default max health value
     public int currentHealth;
     public Slider healthSlider;
     public Image damageImage;
     public AudioClip deathClip;
-    public float flashSpeed = 5f;
-    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
+    public float flashSpeed = 5f; //how quickly the damage overlay shows
+    public Color flashColour = new Color(1f, 0f, 0f, 0.1f); //very red, transparent
 
 
     Animator anim;
@@ -29,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
         playerAudio = GetComponent <AudioSource> ();
         playerMovement = GetComponent <PlayerMovement> ();
         //playerShooting = GetComponentInChildren <PlayerShooting> ();
-        currentHealth = startingHealth;
+        currentHealth = startingHealth; //setting default health value
     }
 
 
@@ -46,18 +46,18 @@ public class PlayerHealth : MonoBehaviour
         damaged = false;
     }
 
-
+	//gets called by enemy
     public void TakeDamage (int amount)
     {
         damaged = true;
 
         currentHealth -= amount;
 
-        healthSlider.value = currentHealth;
+        healthSlider.value = currentHealth; //set healthbar value
 
         playerAudio.Play ();
 
-        if(currentHealth <= 0 && !isDead)
+        if(currentHealth <= 0 && !isDead) //if its 0 or below, and they are not dead... make them dead
         {
             Death ();
         }
@@ -75,7 +75,7 @@ public class PlayerHealth : MonoBehaviour
         playerAudio.clip = deathClip;
         playerAudio.Play ();
 
-        playerMovement.enabled = false;
+        playerMovement.enabled = false; //stop player movement
         //playerShooting.enabled = false;
     }
 

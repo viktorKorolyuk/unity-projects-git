@@ -21,7 +21,7 @@ public class EnemyHealth : MonoBehaviour
     {
         anim = GetComponent <Animator> ();
         enemyAudio = GetComponent <AudioSource> ();
-        hitParticles = GetComponentInChildren <ParticleSystem> ();
+        hitParticles = GetComponentInChildren <ParticleSystem> ();//go through all children objects,a nd find the first particle system
         capsuleCollider = GetComponent <CapsuleCollider> ();
 
         currentHealth = startingHealth;
@@ -46,10 +46,10 @@ public class EnemyHealth : MonoBehaviour
 
         currentHealth -= amount;
             
-        hitParticles.transform.position = hitPoint;
-        hitParticles.Play();
+        hitParticles.transform.position = hitPoint; //set the particle position at the correct point
+        hitParticles.Play(); //play the particle system
 
-        if(currentHealth <= 0)
+        if(currentHealth <= 0) //if the health is small enough, die
         {
             Death ();
         }
@@ -75,6 +75,6 @@ public class EnemyHealth : MonoBehaviour
         GetComponent <Rigidbody> ().isKinematic = true;
         isSinking = true;
         //ScoreManager.score += scoreValue;
-        Destroy (gameObject, 2f);
+        Destroy (gameObject, 2f); //destroy the object after two seconds
     }
 }
