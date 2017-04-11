@@ -4,21 +4,18 @@ using System.Collections;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static int score;
-
+    public static int score; 
+	//shared variable through all scoremanager instances... 
+	//I LEARNED SOTHING!!
 
     Text text;
 
-
-    void Awake ()
-    {
+    void Awake (){
         text = GetComponent <Text> ();
         score = 0;
     }
-
-
-    void Update ()
-    {
+		
+    void Update (){
         text.text = "Score: " + score;
     }
 }

@@ -10,16 +10,13 @@ public class EnemyManager : MonoBehaviour
 
     void Start ()
     {
-        InvokeRepeating ("Spawn", spawnTime, spawnTime);
+        InvokeRepeating ("Spawn", spawnTime, spawnTime); //setInterval
     }
 
 
     void Spawn ()
     {
-        if(playerHealth.currentHealth <= 0f)
-        {
-            return;
-        }
+        if(playerHealth.currentHealth <= 0f) return;
 
         int spawnPointIndex = Random.Range (0, spawnPoints.Length);
 

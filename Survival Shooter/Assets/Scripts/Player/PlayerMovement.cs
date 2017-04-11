@@ -32,16 +32,18 @@ public class PlayerMovement : MonoBehaviour
 		playerRigidbody.MovePosition (transform.position + movement); //move player
 	}
 	void Turning(){
+		//get mouse position
 		Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+		//variable that will define what camRay hit
 		RaycastHit floorHit;
-
-		//floorHit is uninitialized, but when the ifstatement runs 
-		//"out floorHit" it gets initialized
+		 
+		//floorHit is uninitialized, but when the if statement runs 
+		//"out floorHit" it gets initialized. This is very useful to get variable return
 		if (Physics.Raycast (camRay, out floorHit, camRayLength, floorMask)) {
 			Vector3 playerToMouse = floorHit.point - transform.position;
-			playerToMouse.y = 0f;
-			Quaternion newRotation = Quaternion.LookRotation (playerToMouse);
-			playerRigidbody.MoveRotation (newRotation);
+			playerToMouse.y = 0f; //the y difference is 0
+			Quaternion newRotation = Quaternion.LookRotation (playerToMouse); //look at that position
+			playerRigidbody.MoveRotation (newRotation); //rotate to that position
 		}
 	}
 	void Animating(float h, float v){

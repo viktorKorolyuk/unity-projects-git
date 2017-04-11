@@ -17,8 +17,8 @@ TagManager:
   - Shootable
   - LightMask
   - Invisible
-  - 
-  - 
+  - Exclude
+  - Environment
   - 
   - 
   - 
