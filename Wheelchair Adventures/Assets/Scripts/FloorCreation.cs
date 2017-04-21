@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FloorCreation : MonoBehaviour {
+	static string dir;
 	GameObject floor;
 	GameObject player;
 	// Use this for initialization

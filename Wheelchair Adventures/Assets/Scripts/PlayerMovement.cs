@@ -6,27 +6,26 @@ public class PlayerMovement : MonoBehaviour {
 	int divider = 3;
 	float push;
 	int location = 2;
+	float[] positions = new float[3];
 
-	// Use this for initialization
 	void Start () {
 		push = GameObject.FindGameObjectWithTag ("Floor").transform.lossyScale.y / divider;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-		Debug.Log (location);
-		if (1 <= location && location <= 2) {
-			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
-				transform.position = new Vector3 (transform.position.x - push, transform.position.y, transform.position.z);
-				location++;
-			} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
-				transform.position = new Vector3 (transform.position.x + push, transform.position.y, transform.position.z);
-				location--;
-			}
-		}
-		//xmov = (xmov > 0) ? -1 : 1;
 
-		//transform.position = new Vector3 (transform.position.x + xmov, transform.position.y, transform.position.z);
+		positions [0] = transform.position.x - push; //1
+		positions [1] = transform.position.x; //2
+		positions [2] = transform.position.x + push; //3
+	}
+	void Update () {
+			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+				if (location == 1) return;
+				location--;
+			} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
+				if (location == 3) return;
+				location++;
+			}
+		Debug.Log (location);
+		if(location-1 < positions.Length) {
+			transform.position = Vector3.Lerp(new Vector3 (positions[location-1], transform.position.y, transform.position.z + 0.2f), transform.position, Time.deltaTime * 10f);
+		}
 	}
 }
