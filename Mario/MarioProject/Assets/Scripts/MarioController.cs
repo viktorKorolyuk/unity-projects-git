@@ -16,6 +16,7 @@ public class MarioController : MonoBehaviour
 	public float sliding = 5f;
 	public float jumpPower = 50f;
 	public float boxincrease = 0.01f;
+	public Transform feet;
 
 
 	void Start ()
@@ -53,9 +54,6 @@ public class MarioController : MonoBehaviour
 			if (jumpCnt >= 2 || keySpaceDown)
 				return;
 			jumpCnt++;
-			print (jumpCnt);
-
-
 			keySpaceDown = true;
 			rb.velocity = new Vector2 (xv, jumpPower);
 			anim.SetBool ("Jumping", true);
@@ -71,7 +69,6 @@ public class MarioController : MonoBehaviour
 	void OnCollisionEnter2D(Collision2D obj){
 		anim.SetBool ("Jumping", false);
 		jumpCnt = 0;
-		print ("reset jumpCnt to 0");
 		obj.gameObject.transform.position = new Vector2 (obj.gameObject.transform.position.x, obj.gameObject.transform.position.y + boxincrease);
 	}
 
