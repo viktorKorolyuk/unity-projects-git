@@ -4,43 +4,32 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-	Vector3 offset;
-
 	public static float minX;
 	public static float width;
 	public Transform player;
 
+	float offset;
+
 	void Start () {
-		offset = transform.position - player.transform.position;
+		offset = transform.position.x - player.position.x;
 
 		width = GetComponent<Camera> ().pixelWidth;
 	}
 
 	void LateUpdate () {
 		minX = transform.position.x;
-	//	transform.position = offset + player.transform.position;
 
 		Vector3 playerPos = Camera.main.WorldToScreenPoint(player.position);
 
+		float yDif = 0;
 		if (playerPos.y > Screen.height/2) {
 			//start tracking him
-
-			float yDif = playerPos.y - Screen.height/2;
-			transform.position = Vector3.Lerp(
-				transform.position,new Vector3 (transform.position.x, 
-					transform.position.y + yDif,
-					transform.position.z), Time.deltaTime);
+			yDif = playerPos.y - Screen.height/2;
 		} else if (playerPos.y < Screen.height/4) {
 			//start tracking him
-
-			float yDif = Screen.height/4 - playerPos.y;
-			transform.position = Vector3.Lerp(
-				transform.position,new Vector3 (transform.position.x, 
-					transform.position.y - yDif,
-					transform.position.z), Time.deltaTime);
+			yDif = playerPos.y - Screen.height/4;
 		}
+		transform.position = new Vector3 (offset + player.position.x, Mathf.Lerp (transform.position.y, transform.position.y + yDif, Time.deltaTime), transform.position.z);
 
-		//if (transform.position.x < minX)
-		//	transform.position = new Vector3 (minX, transform.position.y, transform.position.z);
 	}
 }
