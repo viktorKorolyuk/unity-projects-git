@@ -12,10 +12,8 @@ public class PlayerController : MonoBehaviour {
 		rb = GetComponent<Rigidbody> ();
 	}
 	void FixedUpdate () {
-		float moveHorizontal = Input.acceleration.x;
-		float moveVertical = Input.acceleration.y;
-
-
+		float moveHorizontal = Input.GetAxis("Horizontal");
+		float moveVertical = Input.GetAxis("Vertical");
 		Vector3 mv = new Vector3 (moveHorizontal, 0f, moveVertical);
 		rb.AddForce (mv * speed);
 	}

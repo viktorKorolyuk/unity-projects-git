@@ -21,9 +21,6 @@ public class DistanceMeter : MonoBehaviour {
 		x2 = target.transform.position.x,
 		y1 = owner.transform.position.z,
 		y2 = target.transform.position.z;
-		Debug.Log("A("+x1+", " + y1+")");
-		Debug.Log("B("+x2+", " + y2+")");
-		Debug.Log (square(x2-x1));
 		float l = Mathf.Sqrt (square(x2 - x1) + square(y2 - y1));
 		l = Mathf.Round (l) / 10;
 		text.text = l.ToString() + "m";
