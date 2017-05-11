@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour{
 	Animator ac;
 	SpriteRenderer rc;
 	float score = 0;
-	float lastX = 0;
 	bool dead = false;
 	// Use this for initialization
 	void Start (){
@@ -32,9 +31,7 @@ public class PlayerController : MonoBehaviour{
 			return;
 
 		float h = Input.GetAxis ("Horizontal");
-
 		bool allowMovement = false;
-
 		bool isWalled = Physics2D.OverlapArea (rightWallMargin.position, leftWallMargin.position, wall); //is it hitting somthing on its "sides"
 		bool isGrounded = Physics2D.OverlapArea (topRight.position, bottomLeft.position, ground | wall); //is it directly below them (aka walkable object)
 
@@ -56,7 +53,6 @@ public class PlayerController : MonoBehaviour{
 			}
 			rb.velocity = new Vector2 (h * speed, rb.velocity.y);
 		}
-
 
 		if (isGrounded && Input.GetKey (KeyCode.Space)) {
 			//Jump
@@ -86,7 +82,8 @@ public class PlayerController : MonoBehaviour{
 			float blockMaxX = other.transform.position.x + (blocky.size.x/2);
 			if (blockY <= transform.position.y && transform.position.y <= blockYtop && blockMinX <= transform.position.x && transform.position.x <= blockMaxX ) {
 				score++;
-				scoreText.text = "Score: " + score;
+				scoreText.text = "x" + score.ToString("00");
+				other.gameObject.GetComponent<QuestionBlockController> ().anim();
 			}
 		}
 	}
