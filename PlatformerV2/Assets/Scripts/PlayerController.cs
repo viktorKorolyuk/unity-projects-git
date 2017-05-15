@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour{
 		bool isWalled = Physics2D.OverlapArea (rightWallMargin.position, leftWallMargin.position, wall); //is it hitting somthing on its "sides"
 		bool isGrounded = Physics2D.OverlapArea (topRight.position, bottomLeft.position, ground | wall); //is it directly below them (aka walkable object)
 
+		print (isWalled);
 		if (!isWalled) {
 			allowMovement = true;
 		} else if (isGrounded && isWalled) {
