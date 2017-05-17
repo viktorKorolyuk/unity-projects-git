@@ -17,6 +17,7 @@ public class QuestionBlockController : MonoBehaviour {
 	public void anim(){
 		GameObject current = Instantiate (gift, transform);
 
+		current.GetComponent<Rigidbody2D> ().AddForce (Vector2.up * 300);
 		//rise 5 pixels then disapear
 	}
 }

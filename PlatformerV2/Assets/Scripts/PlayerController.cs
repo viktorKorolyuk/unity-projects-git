@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour{
 	public float speed;
@@ -77,15 +78,17 @@ public class PlayerController : MonoBehaviour{
 			}
 		} else if (other.gameObject.CompareTag ("giftbox")) {
 			BoxCollider2D blocky = other.gameObject.GetComponent<BoxCollider2D> ();
-			float blockY = other.transform.position.y - (blocky.size.y/2) - 2;
+			float blockY = other.transform.position.y - (blocky.size.y / 2) - 2;
 			float blockYtop = other.transform.position.y + (blocky.size.y / 2);
-			float blockMinX = other.transform.position.x - (blocky.size.x/2);
-			float blockMaxX = other.transform.position.x + (blocky.size.x/2);
-			if (blockY <= transform.position.y && transform.position.y <= blockYtop && blockMinX <= transform.position.x && transform.position.x <= blockMaxX ) {
+			float blockMinX = other.transform.position.x - (blocky.size.x / 2);
+			float blockMaxX = other.transform.position.x + (blocky.size.x / 2);
+			if (blockY <= transform.position.y && transform.position.y <= blockYtop && blockMinX <= transform.position.x && transform.position.x <= blockMaxX) {
 				score++;
-				scoreText.text = "x" + score.ToString("00");
-				other.gameObject.GetComponent<QuestionBlockController> ().anim();
+				scoreText.text = "x" + score.ToString ("00");
+				other.gameObject.GetComponent<QuestionBlockController> ().anim ();
 			}
+		} else if (other.gameObject.CompareTag ("flagpole")) {
+			StartCoroutine (NextLevel ());
 		}
 	}
 
@@ -113,5 +116,9 @@ public class PlayerController : MonoBehaviour{
 		// go back to menu or restart level;
 		Application.LoadLevel (Application.loadedLevel);
 
+	}
+	IEnumerator NextLevel(){
+		yield return new WaitForSeconds (1.9f);
+		SceneManager.LoadScene (Application.loadedLevel + 1);
 	}
 }
