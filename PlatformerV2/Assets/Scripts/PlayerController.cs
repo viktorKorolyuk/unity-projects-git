@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
 		if (isWalled || isGrounded) ac.SetBool ("Jumping", false);
 		if (isSwimming)
 			ac.SetBool ("swimming", true);
-		print (isSwimming);
 		if((isGrounded))
 			ac.SetBool ("swimming", false);
 		if (allowMovement) { //thus it should move
