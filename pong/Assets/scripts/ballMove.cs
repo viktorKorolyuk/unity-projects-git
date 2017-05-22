@@ -16,7 +16,6 @@ public class ballMove : MonoBehaviour {
 		x = dir * xSpeed * Time.deltaTime;
 		transform.position += new Vector3 (x, 0, 0);
 		transform.position += new Vector3 (0, speed * x, 0); //y = mx
-
 	}
 	void OnCollisionEnter2D(Collision2D obj){
 		switch (obj.gameObject.tag) {
