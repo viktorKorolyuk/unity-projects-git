@@ -51,7 +51,7 @@ public class paddleAISmart : MonoBehaviour {
 		Debug.DrawRay(ball.position, bb);
 		willHit(ball.position, bb);
 
-		transform.position = Vector3.Lerp (transform.position, ballHit, Time.deltaTime * speed);
+		//transform.position = Vector3.Lerp (transform.position, ballHit, Time.deltaTime * speed);
 
 		lastX = ball.position.x;
 		lastY = ball.position.y;
@@ -87,13 +87,19 @@ public class paddleAISmart : MonoBehaviour {
 			if (hit.collider.gameObject.tag == "MainCamera") {
 				
 				//Vector3 ballHit = linearEquation (transform.position.x, -slope, yintCalc(hit.point.y, -slope, hit.point.x)); //same euation but flipped slope
-				Vector3 trajHit = new Vector3 (hit.point.x, hit.point.y + bextents, 0); //where the 'ball' will hit (gotten from raycast) and thus its new point
+				Vector3 trajHit = new Vector3 (hit.point.x, hit.point.y, 0); //where the 'ball' will hit (gotten from raycast) and thus its new point
 				Vector3 newRayDir = linearEquation(transform.position.x, -slope, yintCalc(trajHit.y, -slope, trajHit.x));
-				//Vector3 bb = new Vector3 (transform.position.x - ball.position.x, ballHit.y - ball.position.y, 0);
 
-
-				//Debug.DrawRay(trajHit, newRayDir, Color.red);
-				Debug.DrawLine(trajHit, newRayDir, Color.blue, 1);
+				RaycastHit2D newLine = Physics2D.Raycast(newRayDir, (newRayDir - trajHit), Mathf.Infinity, bounceLayer);
+				//print (newLine.collider.gameObject.tag);
+				Debug.DrawRay(trajHit, (newRayDir - trajHit), Color.blue);
+		
+				Vector3 mewLine = linearEquation(-100, slope, yintCalc(newLine.point.y, slope, newLine.point.x));
+				Debug.DrawLine(newLine.point, mewLine, Color.red);
+				Vector3 tr = transform.position;
+				tr.y = newRayDir.y;
+				transform.position = Vector3.Lerp(transform.position, tr, Time.deltaTime);
+				//willHit(trajHit, newRayDir);
 			}
 		}
 	}
