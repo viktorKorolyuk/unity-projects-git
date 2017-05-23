@@ -34,13 +34,17 @@ public class paddleAI : MonoBehaviour {
 		ss.y = paddleMinY;
 		st.y = paddleMinY;
 		Debug.DrawLine (ss, st);
-		if(paddleMinY <= ballPosY - bextents && ballPosY + bextents <= paddleMaxY){
+
+		//if(paddleMinY <= ballPosY - bextents && ballPosY + bextents <= paddleMaxY){
 			//the ball will hit the paddle at this time
 			Debug.DrawLine(ball.position, tr, Color.green);
-		} else{
+		//} else{
+
 			float dir = ball.position.y - tr.y;
+		//if (Mathf.Abs (dir) > bextents * 5) {
 			float x = (Mathf.Abs (dir) == dir) ? 1f : -1f;
 			transform.position += new Vector3 (0, x*speed * Time.deltaTime, 0);
-		}
+		//}
+		//}
 	}
 }
