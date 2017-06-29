@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 	int divider = 3;
 	float push;
-	int location = 2;
+	float location = 0;
 	float[] positions = new float[3];
 
 	void Start () {
@@ -15,17 +15,17 @@ public class PlayerMovement : MonoBehaviour {
 		positions [1] = transform.position.x; //2
 		positions [2] = transform.position.x + push; //3
 	}
-	void Update () {
-			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
-				if (location == 1) return;
-				location--;
-			} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
-				if (location == 3) return;
-				location++;
-			}
-		Debug.Log (location);
-		if(location-1 < positions.Length) {
-			transform.position = Vector3.Lerp(new Vector3 (positions[location-1], transform.position.y, transform.position.z + 0.2f), transform.position, Time.deltaTime * 10f);
+
+	void FixedUpdate () {
+		if (Input.GetAxis("wSides") > 0) {
+			location = positions [0];
+		} else if (Input.GetAxis("wDown") > 0) {
+			location = positions [1];
+		} else if (Input.GetAxis("wSides") < 0) {
+			location = positions [2];
 		}
+		transform.position = transform.position + Vector3.forward;
+		//print ("transform.position.x: " + transform.position.x + " position: " + location);
+		transform.position = new Vector3 (Mathf.Lerp(transform.position.x, location, Time.deltaTime * 5f), transform.position.y, transform.position.z);
 	}
 }
