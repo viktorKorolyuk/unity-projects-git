@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/pongGame.unity
+=======
+- path: Assets/main.unity
+>>>>>>> master
   isLoaded: 1
   isActive: 1
