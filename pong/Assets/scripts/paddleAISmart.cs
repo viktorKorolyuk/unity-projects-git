@@ -12,7 +12,6 @@ public class paddleAISmart : MonoBehaviour {
 	float extents, bextents;
 	float lastX, lastY, slope, yint,xsped;
 
-	// Update is called once per frame
 	void Start(){
 		ball_gm = GameObject.FindGameObjectWithTag ("Ball");
 		col = GetComponent<Collider2D> ();
@@ -33,11 +32,17 @@ public class paddleAISmart : MonoBehaviour {
 		float paddleMaxY = tr.y + extents;
 		float paddleMinY = tr.y - extents;
 
+		//Visualize the area where the ball can hit
 		drawBorders(tr, paddleMaxY, paddleMinY);
 
+
 		/*
-		 * We need to find the location where the ball will hit based on its linear trajectory
+		 * 									Calculations of AI start
+		 * 								   --------------------------
 		 */
+
+		//We need to find the location where the ball will hit based on its linear trajectory
+		 
 		if (ball.position.x == lastX)
 			return; //to ensure no NAN values exist when calculating slope
 
@@ -45,13 +50,10 @@ public class paddleAISmart : MonoBehaviour {
 		slope = (ball.position.y - lastY)/ xsped; //delta y divided by delta x
 		yint = yintCalc(ball.position.y, slope, ball.position.x); //get y-intercept of tracectory to properly graph
 
-		//print("y = " + slope + "x + " + yint);
 		Vector3 ballHit = linearEquation (tr.x, slope, yint);
-		Vector3 bb = new Vector3 (tr.x - ball.position.x, ballHit.y - ball.position.y, 0); //a relative value from two positions
-		Debug.DrawRay(ball.position, bb);
-		willHit(ball.position, bb);
+		Debug.DrawRay(ball.position, ballHit - ball.position);
 
-		//transform.position = Vector3.Lerp (transform.position, ballHit, Time.deltaTime * speed);
+		willHit(ball.position, ballHit - ball.position);
 
 		lastX = ball.position.x;
 		lastY = ball.position.y;
@@ -66,6 +68,7 @@ public class paddleAISmart : MonoBehaviour {
 		Vector3 st = ss;
 		st.x = 0;
 		Debug.DrawLine (ss, st);
+
 		//Draw bottom extents of paddle
 		ss.y = pmnY;
 		st.y = pmnY;
@@ -98,8 +101,8 @@ public class paddleAISmart : MonoBehaviour {
 				Debug.DrawLine(newLine.point, mewLine, Color.red);
 				Vector3 tr = transform.position;
 				tr.y = newRayDir.y;
+//				/willHit (newLine.point, mewLine - new Vector3(newLine.point.x, newLine.point.y, 0));
 				transform.position = Vector3.Lerp(transform.position, tr, Time.deltaTime);
-				//willHit(trajHit, newRayDir);
 			}
 		}
 	}
