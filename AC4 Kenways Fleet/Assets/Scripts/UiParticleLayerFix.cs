@@ -6,6 +6,6 @@ public class UiParticleLayerFix : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+    
     }
 }
